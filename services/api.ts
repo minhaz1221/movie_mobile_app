@@ -19,8 +19,9 @@ export const fetchMovies = async ({ query }: { query: string }) => {
   });
 
   if(!response.ok) {
-    // @ts-ignore
-    throw new Error('Failed to fetch movies', response.statusText);
+    const errorData = await response.json();
+    console.log("TMDB Error Details:", errorData); // This will tell you exactly what's wrong
+    throw new Error(`Error ${response.status}: ${errorData.status_message}`);
   }
 
 
